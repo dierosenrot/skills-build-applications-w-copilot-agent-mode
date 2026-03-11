@@ -17,7 +17,8 @@ Including another URLconf
 
 import os
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from .views_frontend import serve_react
 from rest_framework.routers import DefaultRouter
 from django.http import JsonResponse
 from . import views
@@ -43,5 +44,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', api_base_url, name='api-base-url'),
     path('api/', include(router.urls)),
-    path('', lambda request: JsonResponse({"message": "Welcome to the Octofit Tracker API!"})),
+    re_path(r'^.*$', serve_react),
 ]
